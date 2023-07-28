@@ -15,6 +15,7 @@ SUPPORTED_MINOR_VERSION = 9
 
 CONFIG_FILE_NAME = "time_report_config.json"
 DAYS_IN_A_WEEK = 7
+WEEKS_IN_YEAR = 52
 
 CFG = None
 
@@ -123,7 +124,21 @@ def get_current_week() -> int:
 def get_day_from_week(week: int, day: int):
     """Function returning date from given week and day, 1==Monday"""
     year = get_current_year()
+    (week, year) = normalize_week(week, year)
     return date.fromisocalendar(year, week, day)
+
+
+def normalize_week(week: int, year: int):
+    """Returns normalized week and year"""
+    while week > WEEKS_IN_YEAR:
+        week -= WEEKS_IN_YEAR
+        year += 1
+
+    while week < 0:
+        week += WEEKS_IN_YEAR
+        year -= 1
+
+    return week, year
 
 
 def get_list_of_days(week: int) -> Tuple[date,]:
