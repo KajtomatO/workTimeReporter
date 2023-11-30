@@ -163,7 +163,7 @@ def get_list_of_days(week: int) -> Tuple[date,]:
 def format_day(day) -> str:
     """Formats a day into final output"""
     cfg = get_cfg()
-    date_str = day.strftime("%d:%m")
+    date_str = day.strftime("%d.%m")
     day_name = day.strftime("%a")
 
     description = ""
